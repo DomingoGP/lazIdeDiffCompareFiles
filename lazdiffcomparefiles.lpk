@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="5">
+    <PathDelim Value="\"/>
+    <Name Value="lazdiffcomparefiles"/>
+    <Type Value="RunAndDesignTime"/>
+    <Author Value="Domingo Galmés"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+    </CompilerOptions>
+    <Description Value="File compare tool package for the lazarus IDE."/>
+    <Version Major="1"/>
+    <Files>
+      <Item>
+        <Filename Value="lazdiffregisteride.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="lazdiffregisteride"/>
+      </Item>
+      <Item>
+        <Filename Value="lazdiffform.pas"/>
+        <UnitName Value="lazdiffform"/>
+      </Item>
+      <Item>
+        <Filename Value="findreplacedialog2.pas"/>
+        <UnitName Value="findreplacedialog2"/>
+      </Item>
+      <Item>
+        <Filename Value="lazdiffuiconsts.pas"/>
+        <UnitName Value="lazdiffUIConsts"/>
+      </Item>
+      <Item>
+        <Filename Value="lazdiffutils.pas"/>
+        <UnitName Value="lazdiffutils"/>
+      </Item>
+      <Item>
+        <Filename Value="diff2.pas"/>
+        <UnitName Value="diff2"/>
+      </Item>
+    </Files>
+    <i18n>
+      <EnableI18N Value="True"/>
+      <OutDir Value="languages"/>
+    </i18n>
+    <RequiredPkgs>
+      <Item>
+        <PackageName Value="SynEdit"/>
+      </Item>
+      <Item>
+        <PackageName Value="IDEIntf"/>
+      </Item>
+      <Item>
+        <PackageName Value="LCL"/>
+      </Item>
+      <Item>
+        <PackageName Value="FCL"/>
+      </Item>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <UseFileFilters Value="True"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>
