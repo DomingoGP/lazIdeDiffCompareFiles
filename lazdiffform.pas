@@ -26,7 +26,7 @@
  ***************************************************************************
 
   Author: Domingo Galmés
-  some code borrowed from diffdialog.pas, author   Mattias Gaertner
+  some code borrowed from diffdialog.pas, author   Mattias Gaertner (www.lazarus-ide.org)
 
   Abstract:
     The TDiffForm is a form for showing differences between two files.
@@ -156,7 +156,7 @@ type
     procedure btnpreviousClick(Sender: TObject);
     procedure CancelScanningButtonClick(Sender: TObject);
     procedure CloseButtonClick(Sender: TObject);
-    procedure SpecialLineMarkup(Sender: TObject; Line: integer;
+    procedure OnSpecialLineMarkup(Sender: TObject; Line: integer;
       var Special: boolean; Markup: TSynSelectedColor);
     procedure edLeftStatusChange(Sender: TObject; Changes: TSynStatusChanges);
     procedure edRightStatusChange(Sender: TObject; Changes: TSynStatusChanges);
@@ -706,7 +706,7 @@ begin
   end;
 end;
 
-procedure TDiffForm.SpecialLineMarkup(Sender: TObject; Line: integer;
+procedure TDiffForm.OnSpecialLineMarkup(Sender: TObject; Line: integer;
   var Special: boolean; Markup: TSynSelectedColor);
 var
   r, g, b: byte;

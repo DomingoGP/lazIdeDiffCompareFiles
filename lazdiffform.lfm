@@ -10,7 +10,6 @@ object DiffForm: TDiffForm
   OnClose = FormClose
   OnCreate = FormCreate
   Position = poScreenCenter
-  LCLVersion = '2.1.0.0'
   object OpenInEditorButton: TBitBtn
     AnchorSideRight.Control = CloseButton
     AnchorSideBottom.Control = Owner
@@ -285,7 +284,7 @@ object DiffForm: TDiffForm
         ParentColor = False
         ParentFont = False
         TabOrder = 0
-        Gutter.Width = 57
+        Gutter.Width = 47
         Gutter.MouseActions = <>
         RightGutter.Width = 0
         RightGutter.MouseActions = <>
@@ -734,7 +733,7 @@ object DiffForm: TDiffForm
         MouseLinkColor.Foreground = clBlue
         LineHighlightColor.Background = clNone
         LineHighlightColor.Foreground = clNone
-        OnSpecialLineMarkup = SpecialLineMarkup
+        OnSpecialLineMarkup = OnSpecialLineMarkup
         OnStatusChange = edLeftStatusChange
         inline SynLeftGutterPartList1: TSynGutterPartList
           object SynGutterMarks1: TSynGutterMarks
@@ -787,7 +786,7 @@ object DiffForm: TDiffForm
         ParentColor = False
         ParentFont = False
         TabOrder = 1
-        Gutter.Width = 57
+        Gutter.Width = 47
         Gutter.MouseActions = <>
         RightGutter.Width = 0
         RightGutter.MouseActions = <>
@@ -1236,7 +1235,7 @@ object DiffForm: TDiffForm
         MouseLinkColor.Foreground = clBlue
         LineHighlightColor.Background = clNone
         LineHighlightColor.Foreground = clNone
-        OnSpecialLineMarkup = SpecialLineMarkup
+        OnSpecialLineMarkup = OnSpecialLineMarkup
         OnStatusChange = edRightStatusChange
         inline SynLeftGutterPartList1: TSynGutterPartList
           object SynGutterMarks1: TSynGutterMarks
@@ -1621,7 +1620,7 @@ object DiffForm: TDiffForm
         TabOrder = 0
         BookMarkOptions.Xoffset = -18
         Gutter.Visible = False
-        Gutter.Width = 57
+        Gutter.Width = 59
         Gutter.MouseActions = <        
           item
             ClickCount = ccAny

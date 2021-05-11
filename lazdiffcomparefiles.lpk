@@ -12,8 +12,9 @@
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Description Value="File compare tool package for the lazarus IDE."/>
-    <Version Major="1"/>
+    <Description Value="File compare tool package for the lazarus IDE.
+Compares the files side by side and makes patches in unified format."/>
+    <Version Minor="1"/>
     <Files>
       <Item>
         <Filename Value="lazdiffregisteride.pas"/>

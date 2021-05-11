@@ -15,6 +15,7 @@ object LazFindReplaceDialog2: TLazFindReplaceDialog2
   OnChangeBounds = FormChangeBounds
   OnClose = FormClose
   OnShow = FormShow
+  LCLVersion = '2.1.0.0'
   object TextToFindLabel: TLabel
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = TextToFindComboBox

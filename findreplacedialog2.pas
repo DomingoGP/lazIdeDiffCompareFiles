@@ -5,9 +5,9 @@
 
  ***************************************************************************/
 
-  Author: Mattias Gaertner    (ide/findreplacedialog.pas)
+  Author: Mattias Gaertner    (ide/findreplacedialog.pas) www.lazarus-ide.org
 
-  Changed by Domingo Galmés removed IDE dependencies.
+  Changed by Domingo Galmés, removed IDE dependencies.
 
  *****************************************************************************
   See the file COPYING.modifiedLGPL.txt, included in this distribution,
