@@ -68,9 +68,9 @@ object DiffForm: TDiffForm
     Height = 619
     Top = 8
     Width = 1081
-    ActivePage = tbsCompare
+    ActivePage = tbsOptions
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 3
     object tbsOptions: TTabSheet
       Caption = 'Options'
@@ -129,6 +129,7 @@ object DiffForm: TDiffForm
           BorderSpacing.Right = 6
           ItemHeight = 15
           OnChange = Text2ComboboxChange
+          ReadOnly = True
           TabOrder = 0
           Text = 'Text2Combobox'
         end
@@ -191,6 +192,7 @@ object DiffForm: TDiffForm
           BorderSpacing.Right = 6
           ItemHeight = 15
           OnChange = Text1ComboboxChange
+          ReadOnly = True
           TabOrder = 0
           Text = 'Text1Combobox'
         end

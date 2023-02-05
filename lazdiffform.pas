@@ -475,6 +475,7 @@ end;
 procedure TDiffForm.btnCompareClick(Sender: TObject);
 var
   FileNameLeft, FileNameRight: string;
+  Temp:string;
   Digits: integer;
 const
   TAB_COMPARE_INDEX = 1;
@@ -484,8 +485,16 @@ begin
   DiffSynEdit.Lines.Clear;
   fSelectedFile1.GetLines(fLeftLines, fLeftFirstLineNumber, FileNameLeft);
   fSelectedFile2.GetLines(fRightLines, fRightFirstLineNumber, FileNameRight);
-  lbLeftEdit.Caption:=FileNameLeft;
-  lbRightEdit.Caption:=FileNameRight;
+  if fSelectedFile1.fFile.Editor<>nil then
+    Temp:='[Editor] '
+  else
+    Temp:='[File] ';
+  lbLeftEdit.Caption:=Temp+FileNameLeft;
+  if fSelectedFile2.fFile.Editor<>nil then
+    Temp:='[Editor] '
+  else
+    Temp:='[File] ';
+  lbRightEdit.Caption:=Temp+FileNameRight;
   lbLeftEdit.Hint:=FileNameLeft;
   lbRightEdit.Hint:=FileNameRight;
   fCurrentOptions := GetDiffOptions;
@@ -671,7 +680,7 @@ begin
   Inc(LineIndex);
   if LineIndex > fDiff.Count then
     Exit;
-  while LineIndex < fDiff.Count do
+  while LineIndex <= fDiff.Count do
   begin
     KindTest := GetNomalizedKindType(LineIndex);
     if KindTest <> Kind then
@@ -952,6 +961,17 @@ begin
       Config.SetDeleteValue('Options/IgnoreSpaceCharAmount', tdfIgnoreSpaceCharAmount in DiffFlags, False);
       Config.SetDeleteValue('Options/IgnoreSpaceChars', tdfIgnoreSpaceChars in DiffFlags, False);
       Config.SetDeleteValue('Options/IgnoreTrailingSpaces', tdfIgnoreTrailingSpaces in DiffFlags, False);
+      if (fSelectedFile1 <> nil) and (fSelectedFile1.fFile <> nil) then
+      begin
+        Config.SetDeleteValue('Options/DiffText1', fSelectedFile1.fFile.Name, '');
+        Config.SetDeleteValue('Options/Text1OnlySelection',
+          Text1OnlySelectionCheckBox.Checked, False);
+      end
+      else
+      begin
+        Config.SetDeleteValue('Options/DiffText1', '', '');
+        Config.SetDeleteValue('Options/Text1OnlySelection', False, False);
+      end;
       if (fSelectedFile2 <> nil) and (fSelectedFile2.fFile <> nil) then
       begin
         Config.SetDeleteValue('Options/DiffText2', fSelectedFile2.fFile.Name, '');
@@ -980,7 +1000,7 @@ var
   Config: TConfigStorage;
   Version: integer;
   i: integer;
-  LastText2Name: string;
+  LastText1Name,LastText2Name: string;
 begin
   try
     Config := GetIDEConfigStorage('lazdiffcomparefiles.xml', True);
@@ -995,15 +1015,48 @@ begin
         Config.GetValue('Options/IgnoreSpaceCharAmount', False);
       OptionsGroupBox.Checked[IgnoreSpaceCharsCheckBox] := Config.GetValue('Options/IgnoreSpaceChars', False);
       OptionsGroupBox.Checked[IgnoreTrailingSpacesCheckBox] := Config.GetValue('Options/IgnoreTrailingSpaces', False);
+      // get recent Text 1
+      i := 0;
+      LastText1Name := Config.GetValue('Options/DiffText1', '');
+      Text1OnlySelectionCheckBox.Checked := Config.GetValue('Options/Text1OnlySelection', False);
+      if LastText1Name <> '' then
+      begin
+        i := fAvailableFiles.IndexOfName(LastText1Name);
+        if i = -1 then
+        begin
+          fAvailableFiles.Add(TAvailableDiffFile.Create(LastText1Name, nil, False));
+          Text1ComboBox.Items.Add(LastText1Name);
+          Text2ComboBox.Items.Add(LastText1Name);
+          i:=fAvailableFiles.Count-1;
+        end;
+        fSelectedFile1.SetFileName(LastText1Name);
+        fSelectedFile1.SetIndex(i);
+      end
+      else
+      begin
+        fSelectedFile1.SetIndex(-1);
+      end;
       // get recent Text 2
       i := 0;
       LastText2Name := Config.GetValue('Options/DiffText2', '');
       Text2OnlySelectionCheckBox.Checked := Config.GetValue('Options/Text2OnlySelection', False);
       if LastText2Name <> '' then
+      begin
         i := fAvailableFiles.IndexOfName(LastText2Name);
-      if i < 0 then i := 0;
-      if i = fAvailableFiles.IndexOf(fSelectedFile2.fFile) then Inc(i);
-      fSelectedFile2.SetIndex(i);
+        if i = -1 then
+        begin
+          fAvailableFiles.Add(TAvailableDiffFile.Create(LastText2Name, nil, False));
+          Text1ComboBox.Items.Add(LastText2Name);
+          Text2ComboBox.Items.Add(LastText2Name);
+          i:=fAvailableFiles.Count-1;
+        end;
+        fSelectedFile2.SetFileName(LastText2Name);
+        fSelectedFile2.SetIndex(i);
+      end
+      else
+      begin
+        fSelectedFile2.SetIndex(-1);
+      end;
     finally
       Config.Free;
     end;
