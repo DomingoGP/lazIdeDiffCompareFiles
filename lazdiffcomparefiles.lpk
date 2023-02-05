@@ -14,51 +14,52 @@
     </CompilerOptions>
     <Description Value="File compare tool package for the lazarus IDE.
 Compares the files side by side and makes patches in unified format."/>
-    <Version Minor="1"/>
-    <Files>
-      <Item>
+    <Version Minor="2"/>
+    <Files Count="6">
+      <Item1>
         <Filename Value="lazdiffregisteride.pas"/>
         <HasRegisterProc Value="True"/>
         <UnitName Value="lazdiffregisteride"/>
-      </Item>
-      <Item>
+      </Item1>
+      <Item2>
         <Filename Value="lazdiffform.pas"/>
         <UnitName Value="lazdiffform"/>
-      </Item>
-      <Item>
+      </Item2>
+      <Item3>
         <Filename Value="findreplacedialog2.pas"/>
         <UnitName Value="findreplacedialog2"/>
-      </Item>
-      <Item>
+      </Item3>
+      <Item4>
         <Filename Value="lazdiffuiconsts.pas"/>
         <UnitName Value="lazdiffUIConsts"/>
-      </Item>
-      <Item>
+      </Item4>
+      <Item5>
         <Filename Value="lazdiffutils.pas"/>
         <UnitName Value="lazdiffutils"/>
-      </Item>
-      <Item>
+      </Item5>
+      <Item6>
         <Filename Value="diff2.pas"/>
         <UnitName Value="diff2"/>
-      </Item>
+      </Item6>
     </Files>
+    <CompatibilityMode Value="True"/>
     <i18n>
       <EnableI18N Value="True"/>
       <OutDir Value="languages"/>
     </i18n>
-    <RequiredPkgs>
-      <Item>
+    <RequiredPkgs Count="4">
+      <Item1>
         <PackageName Value="SynEdit"/>
-      </Item>
-      <Item>
+      </Item1>
+      <Item2>
         <PackageName Value="IDEIntf"/>
-      </Item>
-      <Item>
+      </Item2>
+      <Item3>
         <PackageName Value="LCL"/>
-      </Item>
-      <Item>
+      </Item3>
+      <Item4>
         <PackageName Value="FCL"/>
-      </Item>
+      </Item4>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

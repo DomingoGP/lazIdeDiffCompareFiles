@@ -723,8 +723,8 @@ begin
   begin
     Markup.Foreground := clNone;
     case fDiff.Compares[Line - 1].Kind of
-      //ckNone:
-      //  Markup.Background := clWhite;
+      ckNone:
+        Markup.Background := clWhite;
       ckAdd:
       begin
         Markup.Background := COLOR_ADDED_LINE;
