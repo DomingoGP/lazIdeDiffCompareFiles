@@ -123,6 +123,8 @@ type
     edRight: TSynEdit;
     HelpButton: TBitBtn;
     CloseButton: TBitBtn;
+    lbLeftEdit: TLabel;
+    lbRightEdit: TLabel;
     OpenInEditorButton: TBitBtn;
     OptionsGroupBox: TCheckGroup;
     PageControl1: TPageControl;
@@ -431,6 +433,9 @@ begin
   edRight.Width := lWidth;
   //center buttons.
   PanelButtons.Left := (TTabSheet(Sender).Width div 2) - (PanelButtons.Width div 2);
+  lbLeftEdit.Width:=lWidth;
+  lbRightEdit.Width:=lWidth;
+  lbRightEdit.Left:=edRight.Left;
 end;
 
 procedure TDiffForm.FileOpenClick(Sender: TObject);
@@ -479,6 +484,10 @@ begin
   DiffSynEdit.Lines.Clear;
   fSelectedFile1.GetLines(fLeftLines, fLeftFirstLineNumber, FileNameLeft);
   fSelectedFile2.GetLines(fRightLines, fRightFirstLineNumber, FileNameRight);
+  lbLeftEdit.Caption:=FileNameLeft;
+  lbRightEdit.Caption:=FileNameRight;
+  lbLeftEdit.Hint:=FileNameLeft;
+  lbRightEdit.Hint:=FileNameRight;
   fCurrentOptions := GetDiffOptions;
   if (fLeftLines.Count > 0) and (fRightLines.Count > 0) then
   begin
