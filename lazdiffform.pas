@@ -1036,6 +1036,7 @@ begin
       begin
         fSelectedFile1.SetIndex(-1);
       end;
+      fSelectedFile1.UpdateIndex;
       // get recent Text 2
       i := 0;
       LastText2Name := Config.GetValue('Options/DiffText2', '');
@@ -1057,6 +1058,7 @@ begin
       begin
         fSelectedFile2.SetIndex(-1);
       end;
+      fSelectedFile2.UpdateIndex;
     finally
       Config.Free;
     end;
