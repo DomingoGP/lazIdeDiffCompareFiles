@@ -71,6 +71,9 @@ TODO:
 * 7 January 2021   - Removed Delphi support from version copied to JCF package *
 *                    under Lazarus sources. Use TCardinalList from LazUtils.   *
 *                    by Juha Manninen.                                         *
+* 9 Feb 2023       - Bugfix: problem with the last character in Execute(string,*
+*                    string) by Domingo Galmés.                                *
+*                  - Replaced String and char types by Domingo Galmés          *
 *******************************************************************************)
 
 interface
@@ -86,6 +89,13 @@ const
   MAX_DIAGONAL = $FFFFFF; //~16 million
 
 type
+  {$ifdef FPC}
+  TDiffString=unicodestring;  //replace with unicodestring/ansistring
+  TDiffChar=unicodechar;      //replace with unicodechar/ansichar
+  {$else}
+  TDiffString=string;    //replace with unicodestring/ansistring
+  TDiffChar=char;        //replace with unicodechar/ansichar
+  {$endif}
 
   P8Bits = PByte;
 
@@ -100,7 +110,7 @@ type
     oldIndex1 : Integer;
     oldIndex2 : Integer;
     case boolean of
-      false   : (chr1, chr2 : Char);
+      false   : (chr1, chr2 : TDiffChar);
       true    : (int1, int2 : Cardinal);
   end;
 
@@ -125,7 +135,7 @@ type
     FDiffList: TList;      //this TList circumvents the need for recursion
     FCancelled: boolean;
     FExecuting: boolean;
-    FCompareInts: boolean; //ie are we comparing integer arrays or char arrays
+    FCompareInts: boolean; //ie are we comparing integer arrays or TDiffChar arrays
     DiagBufferF: pointer;
     DiagBufferB: pointer;
     DiagF, DiagB: PDiags;
@@ -133,8 +143,8 @@ type
     FLastCompareRec: TCompareRec;
     FList1: TCardinalList;
     FList2: TCardinalList;
-    FStr1: string;
-    FStr2: string;
+    FStr1: TDiffString;
+    FStr2: TDiffString;
     procedure PushDiff(offset1, offset2, len1, len2: integer);
     function  PopDiff: boolean;
     procedure InitDiagArrays(len1, len2: integer);
@@ -154,7 +164,7 @@ type
 
     // Compare strings or list of Cardinals ...
     function Execute(const alist1, alist2: TCardinalList): boolean; overload;
-    function Execute(const s1, s2: string): boolean; overload;
+    function Execute(const s1, s2: TDiffString): boolean; overload;
     // Cancel allows interrupting excessively prolonged comparisons
     procedure Cancel;
     procedure Clear;
@@ -248,7 +258,7 @@ begin
 end;
 //------------------------------------------------------------------------------
 
-function TDiff.Execute(const s1, s2: string): boolean;
+function TDiff.Execute(const s1, s2: TDiffString): boolean;
 var
   i, Len1Minus1: integer;
   len1,len2: Integer;
@@ -298,7 +308,7 @@ begin
     //finally, append any trailing matches onto compareList ...
     with FLastCompareRec do
     begin
-      AddChangeChr(oldIndex1,len1Minus1-oldIndex1, ckNone);
+      AddChangeChr(oldIndex1,len1{len1Minus1}-oldIndex1, ckNone);   //<DomingoGP SOLVES BUG: strings index are 1 based not 0 based.
     end;
   finally
     FExecuting := false;
