@@ -328,6 +328,7 @@ var
   ActiveEdit: TSourceEditorInterface;
 begin
   inherited Create(TheOwner);
+  SetupComponents;
   fUpdating := False;
   fSelectedFile1 := TSelectedDiffFile.Create(Self, Text1Combobox, Text1OnlySelectionCheckBox);
   fSelectedFile2 := TSelectedDiffFile.Create(Self, Text2Combobox, Text2OnlySelectionCheckBox);
@@ -336,7 +337,6 @@ begin
   else
     Caption := lisCaptionCompareFiles2;
   //  IDEDialogLayoutList.ApplyLayout(Self, 600, 500);
-  SetupComponents;
   fDiff := TDiff.Create(nil);
   fLeftLines := TStringList.Create;
   fRightLines := TStringList.Create;
@@ -481,6 +481,10 @@ const
   TAB_COMPARE_INDEX = 1;
 begin
   if fUpdating then Exit;
+  if (fSelectedFile1 = nil) or (fSelectedFile1.fFile = nil) then
+    Exit;
+  if (fSelectedFile2 = nil) or (fSelectedFile2.fFile = nil) then
+    Exit;
   fUpdating := True;
   DiffSynEdit.Lines.Clear;
   fSelectedFile1.GetLines(fLeftLines, fLeftFirstLineNumber, FileNameLeft);
