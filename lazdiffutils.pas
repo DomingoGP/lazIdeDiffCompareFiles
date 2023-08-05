@@ -753,17 +753,32 @@ var
 begin
   ATo.Clear;
   ATo.Capacity := AFrom.Count;
-  for lI := 0 to AFrom.Count - 1 do
+  if AFrom.Count>0 then
   begin
-    ATo.Add(AFrom[lI]);
+    for lI := 0 to AFrom.Count - 1 do
+    begin
+      ATo.Add(AFrom[lI]);
+    end;
   end;
 end;
 
 procedure CopyStringList(AFrom: TStrings; ATo: TStrings; AFirstLine: integer; ALastLine: integer); overload;
 var
   lI: integer;
+  lLC:integer;
 begin
   ATo.Clear;
+  lLC:=AFrom.Count;
+  if lLC <= 0 then
+    Exit;
+  if ALastLine>=lLC then
+    ALastLine:=lLC-1;
+  if AFirstLine>=lLC then
+    Exit;
+  if AFirstLine<0 then
+    Exit;
+  if AFirstLine>ALastLine then
+    Exit;
   ATo.Capacity := ALastLine - AFirstLine + 1;
   for lI := AFirstLine to ALastLine do
     ATo.Add(AFrom[lI]);

@@ -265,11 +265,16 @@ procedure TSelectedDiffFile.GetLines(ALines: TStrings; var aFirstLine: integer; 
 begin
   aFirstLine := 1;
   aFileName := '';
-  if fFile = nil then Exit;
+  ALines.Clear;
+  if fFile = nil then
+    Exit;
   if fFile.Editor = nil then
   begin
-    ALines.LoadFromFile(fFile.Name);
-    AFileName := fFile.Name;
+    if (fFile.Name<>'') and FileExists(fFile.Name) then
+    begin
+      ALines.LoadFromFile(fFile.Name);
+      AFileName := fFile.Name;
+    end;
   end
   else
   begin
@@ -502,7 +507,7 @@ begin
   lbLeftEdit.Hint:=FileNameLeft;
   lbRightEdit.Hint:=FileNameRight;
   fCurrentOptions := GetDiffOptions;
-  if (fLeftLines.Count > 0) and (fRightLines.Count > 0) then
+  if (fLeftLines.Count > 0) or (fRightLines.Count > 0) then
   begin
     Text1GroupBox.Enabled := False;
     Text2GroupBox.Enabled := False;
@@ -534,6 +539,11 @@ begin
     OpenInEditorButton.Enabled := True;
     Text2GroupBox.Enabled := True;
     Text1GroupBox.Enabled := True;
+  end
+  else
+  begin
+    edLeft.Lines.Clear;
+    edRight.Lines.Clear;
   end;
   fUpdating := False;
 end;

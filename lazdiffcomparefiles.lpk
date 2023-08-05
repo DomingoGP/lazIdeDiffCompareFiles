@@ -14,7 +14,7 @@
     </CompilerOptions>
     <Description Value="File compare tool package for the lazarus IDE.
 Compares the files side by side and makes patches in unified format."/>
-    <Version Minor="4"/>
+    <Version Minor="5"/>
     <Files Count="6">
       <Item1>
         <Filename Value="lazdiffregisteride.pas"/>
